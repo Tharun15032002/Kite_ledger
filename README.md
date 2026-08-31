@@ -1,8 +1,8 @@
-# Kite Ledger
+# Kite Ledger Mobile Application
 
 Kite Ledger is a React Native expense and personal finance tracking application. It helps users record daily expenses, organize transactions by category and time of day, review monthly spending, and export previous-month records as CSV.
 
-> **Current implementation:** The provided application is a client-side React Native/Expo application. Expense records, categories, and the user's name are stored locally using AsyncStorage. No backend API or remote database is implemented in the provided source.
+> **Current implementation:** Kite Ledger is a client-side React Native/Expo application. Expense records, categories, and the user's name are stored locally using AsyncStorage. The provided source does not implement a backend API, remote database, cloud authentication, or server-side expense storage.
 
 ## Features
 
@@ -77,11 +77,29 @@ The exported CSV contains:
 Date, Category, Time of Day, Note, Amount (INR)
 ```
 
+## Application Architecture
+
+```text
+User
+  ↓
+React Native + Expo
+  ↓
+JavaScript / TypeScript Application Logic
+  ↓
+AsyncStorage
+  ↓
+Local Device Storage
+```
+
+All expense records, categories, and the user's name are persisted locally. The application does not currently send expense data to a backend server or cloud database.
+
 ## Technology Stack
+
+Kite Ledger currently follows a **local-first architecture**. There is no separate backend server or remote database in the provided implementation.
 
 | Layer | Technology |
 |---|---|
-| Framework | React Native |
+| Mobile Framework | React Native |
 | Development Platform | Expo |
 | Language | TypeScript |
 | Local Storage | AsyncStorage |
@@ -90,6 +108,9 @@ Date, Category, Time of Day, Note, Amount (INR)
 | Native File Handling | expo-file-system |
 | File Sharing | expo-sharing |
 | UI | React Native components and StyleSheet |
+| Backend API | Not implemented |
+| Remote Database | Not implemented |
+| Authentication | Not implemented |
 
 The source imports AsyncStorage, React Native UI primitives, SafeAreaView, and SVG components, and conditionally loads Expo file-system and sharing functionality for native platforms. 
 
@@ -280,6 +301,20 @@ Web → Browser Download
 Native → File System → Share
 ```
 
+## Backend and Cloud Services
+
+The current application does not require a separate backend server. Application logic runs within the React Native/Expo application, while persistent expense data is stored locally with AsyncStorage.
+
+The following services are **not currently implemented**:
+
+- Backend API
+- Node.js/Express server
+- Remote database
+- Cloud authentication
+- Cloud synchronization
+
+If a backend is introduced in a future version, the data layer and API integration should be documented separately.
+
 ## Current Limitations
 
 The current source is a local application and does **not** include:
@@ -287,17 +322,16 @@ The current source is a local application and does **not** include:
 - User authentication
 - AWS Cognito
 - Backend API
-- Node.js/Express server
 - Remote database
 - Cloud synchronization
 - Multi-device synchronization
 - Server-side expense storage
 
-If these capabilities are added later, the local AsyncStorage layer can be replaced or complemented with an API/backend architecture.
+The application can be extended with cloud services in a future version if centralized storage or synchronization is required.
 
 ## Future Enhancements
 
-Potential improvements include:
+Potential future improvements include:
 
 - AWS Cognito authentication
 - Node.js + TypeScript backend
@@ -314,6 +348,37 @@ Potential improvements include:
 - Cloud backup
 - Admin portal
 - Multi-device synchronization
+
+## Development Workflow
+
+```text
+Install Dependencies
+        ↓
+Start Expo Development Server
+        ↓
+Run on Android / iOS / Web
+        ↓
+Develop and Test Features
+        ↓
+Verify AsyncStorage Data
+        ↓
+Commit Changes with Git
+        ↓
+Push Changes to GitHub
+```
+
+Typical commands:
+
+```bash
+npm install
+npx expo start
+```
+
+For web:
+
+```bash
+npx expo start --web
+```
 
 ## Author
 
